@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -17,6 +18,33 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+=======
+# Các thư viện phụ thuộc (Không bao giờ đẩy lên github)
+node_modules/
+/dist
+/build
+
+# File log khi chạy hoặc cài thư viện bị lỗi
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Thư mục môi trường local (chứa key bí mật, thông tin cấu hình API)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# File hệ thống của máy tính (Mac hoặc Windows tự sinh ra)
+.DS_Store
+Thumbs.db
+
+# Thư mục cấu hình của các IDE (VS Code, WebStorm)
+.idea/
+.vscode/
+>>>>>>> 59101186bda243399924867589261505a4fcae6a
 *.suo
 *.ntvs*
 *.njsproj
