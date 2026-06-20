@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Form, Button, Input, message} from "antd";
 import axios from "axios";
 
@@ -6,6 +6,15 @@ import axios from "axios";
 const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingBranch }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+    
+    // useEffect
+    useEffect(() => {
+        if(isEdit) {
+            form.setFieldsValue(editingBranch);
+        } else {
+            form.resetFields();
+        }
+    }, [isOpen, editingBranch, form, isEdit]);
     
     // Execute Ok click from user
     const handleAdd = async () => {
