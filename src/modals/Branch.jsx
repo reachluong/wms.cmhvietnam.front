@@ -3,12 +3,12 @@ import { Modal, Form, Button, Input, message} from "antd";
 import axios from "axios";
 
 
-const Branch = ({ isOpen, onClose, onRefresh }) => {
+const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingBranch }) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     
     // Execute Ok click from user
-    const handleOk = async () => {
+    const handleAdd = async () => {
         try {
             // Form Validation
             const values = await form.validateFields();
@@ -27,6 +27,26 @@ const Branch = ({ isOpen, onClose, onRefresh }) => {
             setLoading(false);
         }
     };
+
+    const handleEdit = async () => {
+        try {
+            // Form Validation
+            const values = await form.validateFields();
+            setLoading(true);
+            
+            // Put value by API
+            const response = await axios.put(`http://localhost:8000/api/companies/${editingBranch.id}`, values);
+            message.success(response.data.message || "Successful update");
+
+            form.resetFields(); // Reset Form
+            onRefresh();        // Reload Table
+            onClose();          // Close modal
+        } catch (error) {
+            console.log('Validate Failed:', error);
+        } finally {
+            setLoading(false);
+        }
+    }
     
     // Execute Cancel click from user
     const handleCancel = async () => {
@@ -39,10 +59,10 @@ const Branch = ({ isOpen, onClose, onRefresh }) => {
     };
     return (
         <Modal
-            title = "Add New Branch"
+            title = {isEdit ? 'Edit Branch' : 'Add New Branch'}
             closable = {{'aria-label': 'Cancel'}}
             open = {isOpen}
-            onOk = {handleOk}
+            onOk = {isEdit ? handleEdit : handleAdd}
             onCancel = {handleCancel}
             confirmLoading = {loading}
             okText="Save"
@@ -59,7 +79,7 @@ const Branch = ({ isOpen, onClose, onRefresh }) => {
                 label="Branch Name"
                 rules={[{ required: true, message: 'Enter branch name!' }]}
             >
-                <Input placeholder="Ex: CMH Viet Nam"/>
+                <Input placeholder="Ex: CMH Viet Nam" value={}/>
             </Form.Item>
             <Form.Item
                 name="company_code"

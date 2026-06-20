@@ -8,6 +8,7 @@ const SystemConfigDashboard = () => {
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isBranchModalOpen, setIsBranchModalOpen] = useState(false);
+    const [editingBranch, setEditingBranch] = useState(null);
 
     
     // 1 - Fetch Company Branches for Laravel API on component mount
@@ -116,8 +117,8 @@ const SystemConfigDashboard = () => {
                                 type='text'
                                 shape='circle'
                                 danger={is_active}
-                                icon={is_active ? <StopOutlined /> : <CheckCircleOutlined />}
-                                style={{ color: is_active ? undefined : "#52c41a" }}
+                                icon={is_active ? <CheckCircleOutlined  /> : <StopOutlined />}
+                                style={{ color: is_active ? "#52c41a" : "red" }}
                                 ></Button>
                         </Tooltip>
                     </Popconfirm>
@@ -129,14 +130,12 @@ const SystemConfigDashboard = () => {
                             icon={<EditOutlined />}
                             style={{ color: "#1677ff" }}
                             onClick={() => {
-                                setEditingRecord(record);
+                                setEditingBranch(record);
                                 setIsBranchModalOpen(true);
                             }}
                         ></Button>
                     </Tooltip>
-                    
                     </>
-                    
                 );
                 
 
@@ -212,6 +211,7 @@ const SystemConfigDashboard = () => {
                 isOpen={isBranchModalOpen}
                 onClose={() => setIsBranchModalOpen(false)}
                 onRefresh={() => fetchCompanies()}
+                editingBranch={editingBranch}
             />
         </div>
     );
