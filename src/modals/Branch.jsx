@@ -3,7 +3,8 @@ import { Modal, Form, Button, Input, message} from "antd";
 import axios from "axios";
 
 
-const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingBranch }) => {
+const Branch = ({ isOpen, onClose, onRefresh, editingBranch, isEdit = !!editingBranch }) => {
+   
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     
@@ -15,7 +16,7 @@ const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingB
             form.resetFields();
         }
     }, [isOpen, editingBranch, form, isEdit]);
-    
+
     // Execute Ok click from user
     const handleAdd = async () => {
         try {
@@ -76,6 +77,7 @@ const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingB
             confirmLoading = {loading}
             okText="Save"
             cancelText="Cancel"
+            forceRender
         >  
         <Form
             form={form}
@@ -88,7 +90,7 @@ const Branch = ({ isOpen, onClose, onRefresh, isEdit = !!editingBranch, editingB
                 label="Branch Name"
                 rules={[{ required: true, message: 'Enter branch name!' }]}
             >
-                <Input placeholder="Ex: CMH Viet Nam" value={}/>
+                <Input placeholder="Ex: CMH Viet Nam"/>
             </Form.Item>
             <Form.Item
                 name="company_code"

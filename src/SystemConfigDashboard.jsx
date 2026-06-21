@@ -111,6 +111,7 @@ const SystemConfigDashboard = () => {
                         onConfirm={() => handleToggleStatus(id, is_active)}
                         okText="Agree"
                         cancelText="Abort"
+                        placement='bottom'
                         >
                         <Tooltip title={is_active ? "Click to enable" : "Click to disable"}>
                             <Button 
@@ -135,6 +136,12 @@ const SystemConfigDashboard = () => {
                             }}
                         ></Button>
                     </Tooltip>
+                    <Popconfirm
+                        
+                    >
+                        <Tooltip>
+                        </Tooltip>
+                    </Popconfirm>
                     </>
                 );
                 
